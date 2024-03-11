@@ -1,0 +1,622 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+    <link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/overcast/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../index.css" />
+    <link rel="stylesheet" type="text/css" href="podium.css" />
+    <script src="podium.js"></script>
+
+</head>
+<body >
+    <div class="container">
+        <div class="header">
+            <div class="headerContent">
+                <div class="logoTitleContainer">
+                    <img class="logo" src="../images/logo.png" />
+                    <p class="headerFontStyle">Nisr</p>
+                </div>
+                <div class="headerFontStyle">
+                    <div><a href="../index.html">Home </a></div>
+                    <div><a href="podium.html">Quotation </a> </div>
+                    <div class="hoverables" onclick="headerDropdown('jobs')">
+                        Jobs 🢓
+                        <div id="jobsDrop" class="headerDropDown headerFontStyle">
+                            <div><a href="#">Job Orders</a></div>
+                            <div><a href="#">Job Summary</a></div>
+                            <div><a href="#">Job Directory</a></div>
+                        </div>
+                    </div>
+                    <div class="hoverables" onclick="headerDropdown('invoices')">
+                        Invoice 🢓
+                        <div id="invoiceDrop" class="headerDropDown headerFontStyle">
+                            <div><a href="#">Generate</a></div>
+                            <div><a href="#">LPO</a></div>
+                        </div>
+                    </div>
+                    <div class="hoverables" onclick="headerDropdown('other')">
+                        Other 🢓
+                        <div id="otherDrop" class="headerDropDown headerFontStyle">
+                            <div><a href="#">Supplier DB</a></div>
+                            <div><a href="#">Vehicle Details</a></div>
+                            <div><a href="#">Employee Dash</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="tablinkContainer">
+                <button class="tablink" onclick="openPage('New', this, '#008DE9')" id="defaultOpen">Quotation Podium</button>
+                <button class="tablink" onclick="openPage('Status', this, '#008DE9')">Status</button>
+            </div>
+            <div id="New" class="tabcontent">
+                <div class="NewFlexContainer">
+                    <div class="GeneralDetails">
+                        <div class="GeneralDetailsControlPanel">
+                            <button class="searchButton" onclick="searchQuoteDetailsClientSide()">
+                                <ion-icon name="search-outline"></ion-icon>
+                            </button>
+                            <button class="saveButton" onclick="saveQuotationClientSide()">
+                                <ion-icon name="save-outline"></ion-icon>
+                            </button>
+                            <button class="deleteButton" onclick="deleteQuotationClientSide()">
+                                <ion-icon name="trash-outline"></ion-icon>
+                            </button>
+                            <button class="refreshButton" onclick="screenReset(0)">
+                                <ion-icon name="refresh-circle-outline"></ion-icon>
+                            </button>
+                            <button class="upload" onclick="$('#cloudUpload').css('display','flex')">
+                                <ion-icon name="cloud-upload-outline">
+                            </button>
+                            <button class="download" id="bulkUploadData" onclick="window.open('https://docs.google.com/spreadsheets/d/1jjo4P31qGkIwgwJMpMutrVaKZjwtxrKoPRSoDm11YSg/edit#gid=0','_blank','toolbar=no,scrollbars=yes,resizable=yes,top=200,left=600,width=600,height=600')">
+                                <ion-icon name="cloud-download-outline">
+                            </button>
+                        </div>
+                        <div style="display: flex;justify-content: space-between;align-items: center;flex-wrap: nowrap;">
+                            <div>
+                                <span style="font-weight: bold; color: #9E9E9E;">Last Q.No: </span>
+                                <span id="lastQno" style="color: red; font-weight: bold; font-size: large;"><?!= lastQno; ?></span>
+                            </div>
+                            <input id="datePickerNew" type="date" style="width: auto; font-weight: bold; border-radius: 7px; color: grey; font-size: 12px; margin: 0;">
+                        </div>
+
+                        <div>
+                            <table>
+                                <tbody style="margin: 10px 0 0 0; width: -webkit-fill-available; display: table; ">
+                                    <tr class="modalPop-form">
+                                        <td class="form-group">
+                                            <input class="form-control" id="QnoSelection" list="QnoList" type="text" placeholder="" autocomplete="off">
+                                            <label for="Quotation Number">Quotation Number</label>
+                                            <datalist id="QnoList"></datalist>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="modalPop-form">
+                                        <td class="form-group">
+                                            <input class="form-control" id="ClientNameListInp" list="ClientNameList" type="text" placeholder="" onfocusout="contactPersonListUpdateClient()" autocomplete="off">
+                                            <label for="Client Name">Client Name</label>
+                                            <datalist id="ClientNameList"></datalist>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr class="modalPop-form">
+                                        <td class="form-group">
+                                            <input class="form-control" id="ContactPersonListInp" list="ContactPersonList" type="text" placeholder="" onfocusout="contactNoListUpdateClient()" autocomplete="off">
+                                            <label for="Contact Person">Contact Person</label>
+                                            <datalist id="ContactPersonList"></datalist>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="modalPop-form">
+                                        <td class="form-group">
+                                            <input class="form-control" id="ContactNumberListInp" list="ContactNumberList" type="text" placeholder="" autocomplete="off">
+                                            <label for="Contact Number">Contact Number</label>
+                                            <datalist id="ContactNumberList"></datalist>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="modalPop-form">
+                                        <td class="form-group">
+                                            <input class="form-control" id="QSubjectInp" type="text" placeholder="" autocomplete="off">
+                                            <label for="Quotation Subject">Quotation Subject</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="modalPop-form">
+                                        <td class="form-group">
+                                            <select class="form-control" id="mailTypeSelect" onchange="rfqSubjectListUpdateClient()">
+                                                <option selected></option>
+                                                <option>Reply</option>
+                                                <option>New</option>
+                                                <option>Revised</option>
+                                                <option>Best Price</option>
+                                                <option>Draft</option>
+                                                <option>Attach</option>
+                                            </select>
+                                            <label for="Mail Type">Mail Type</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="modalPop-form">
+                                        <td class="form-group">
+                                            <input class="form-control" id="MailSubjectLineInp" list="MailSubjectLine" type="text" onfocusout="emailListUpdateClient()" autocomplete="off">
+                                            <label for="Mail Subject Line">Mail Subject Line</label>
+                                            <datalist id="MailSubjectLine"></datalist>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="modalPop-form">
+                                        <td class="form-group">
+                                            <input class="form-control" id="EmailListInp" list="EmailList" type="text" autocomplete="off">
+                                            <label for="Email ID">Email ID</label>
+                                            <datalist id="EmailList"></datalist>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="TermsAndCondi">
+
+                        <table>
+                            <tbody style="margin: 10px 0 0 0; width: -webkit-fill-available; display: table;">
+                                <tr class="modalPop-form">
+                                    <td class="form-group">
+                                        <textarea class="form-control" id="PaymentInp" placeholder="" autocomplete="off"></textarea>
+                                        <label for="Payment Type">Payment Type</label>
+                                    </td>
+                                </tr>
+                                <tr class="modalPop-form">
+                                    <td class="form-group">
+                                        <input class="form-control" id="validityInp" list="validityInpList" type="text" placeholder="" autocomplete="off">
+                                        <label for="Validity in Days">Validity in Days</label>
+                                        <datalist id="validityInpList">
+                                            <option value="7 Days">
+                                            <option value="15 Days">
+                                            <option value="30 Days">
+                                        </datalist>
+                                    </td>
+                                </tr>
+
+                                <tr class="modalPop-form">
+                                    <td class="form-group">
+                                        <textarea class="form-control" id="gauranteeInp" type="text" placeholder="" autocomplete="off"></textarea>
+                                        <label for="Guarantee Type">Guarantee Type</label>
+                                    </td>
+                                </tr>
+
+                                <tr class="modalPop-form">
+                                    <td class="form-group">
+                                        <input class="form-control" id="materialInp" list="materialInpList" type="text" placeholder="" autocomplete="off">
+                                        <label for="Material Availability">Material Availability</label>
+                                        <datalist id="materialInpList">
+                                            <option value="Available">
+                                        </datalist>
+                                    </td>
+                                </tr>
+
+                                <tr class="modalPop-form">
+                                    <td class="form-group">
+                                        <input class="form-control" id="hoodCoverInp" list="hoodCoverDataList" type="text" placeholder="" autocomplete="off">
+                                        <label for="Hood Cover">Hood Cover</label>
+                                        <datalist id="hoodCoverDataList">
+                                            <option value="Price Includes Supply, Installation and Hood Cover.">
+                                            <option value="Price Includes Supply and Installation. Price Does Not Include Hood Cover.">
+                                        </datalist>
+                                    </td>
+                                </tr>
+
+                                <tr class="modalPop-form">
+                                    <td class="form-group">
+                                        <input class="form-control" id="additional1Inp" type="text" placeholder="" autocomplete="off">
+                                        <label for="Add NOTE/Work-Method">Add NOTE/Work-Method</label>
+                                        <datalist id="hoodCoverDataList">
+                                            <option value="Price Includes Supply, Installation and Hood Cover.">
+                                            <option value="Price Includes Supply and Installation. Price Does Not Include Hood Cover.">
+                                        </datalist>
+                                    </td>
+                                </tr>
+
+                                <tr class="modalPop-form">
+                                    <td class="form-group">
+                                        <textarea class="form-control" id="additional1ContentInp" type="text" placeholder="" autocomplete="off"></textarea>
+                                        <label for="What is the NOTE/Work-Method about?">What is the NOTE/Work-Method about?</label>
+                                        <datalist id="hoodCoverDataList">
+                                            <option value="Price Includes Supply, Installation and Hood Cover.">
+                                            <option value="Price Includes Supply and Installation. Price Does Not Include Hood Cover.">
+                                        </datalist>
+                                    </td>
+                                </tr>
+
+                                <tr class="modalPop-form">
+                                    <td class="form-group">
+                                        <input class="form-control" id="additional2Inp" type="text" placeholder="" autocomplete="off">
+                                        <label for="Add additional Term">Add additional Term</label>
+                                    </td>
+                                </tr>
+
+                                <tr class="modalPop-form">
+                                    <td class="form-group">
+                                        <textarea class="form-control" id="additional2ContentInp" type="text" placeholder="" autocomplete="off"></textarea>
+                                        <label for="What is the additional term about?">What is the additional term about?</label>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                        <div>
+                            <button class="ripple" onclick="openTermsModalDialogue()">Customize Terms and Conditions</button>
+                        </div>
+                        <div id="CustomizeTerms" class="modal">
+                            <div class="modal-content">
+                                <h4>
+                                    Terms & Conditions&nbsp;&nbsp;
+                                    <button style="padding: 0;margin: 0;background: #ff1504;" onclick="$('#CustomizeTerms').animate({top:'500px',left:'1000px'}).dequeue().hide(500);">
+                                        <ion-icon name="close-outline"></ion-icon>
+                                    </button>
+                                </h4>
+                                <textarea style="height: 400px;">1- Scaffolding material and erection should be arranged by the main contractor.
+2- All necessary civil works are to be arranged by the main contractor.
+3 Any damages could occur to the doors after completing the installation. Works will not be under Al Nisr's responsibility.
+4- Any delay due to force measures or any Pandemic is not under Al Nisr's responsibility.
+5- Electrical supply to the final connection point should be done by the main contractor.
+6 Any construction defects which could affect the installation works will be the main contractor's responsibility.
+7- Any required medical tests ( such as COVID-19 or fitness reports) should be paid for by the client.
+8- The delivery period should start only once we get the advance payment and all the required technical confirmations including the RAL color.
+9- Final price is subjected to final site measurements and inspection.
+10- There is a high probability of noise and scratches appearing on the doors after repetitive use due to the material nature.
+11- If the client did repair work causing damages or color variation to the doors, Al Nisr will not be responsible for that in any way.
+12 - Negligent or intentional destruction to the doors will cause the warranty to be Null and Void.
+13- The Schedule of work is to be confirmed once the advance payment is done, technical confirmation, and RAI color are finalized.
+14 - The warranty will be considered void in the case of :
+a - The repair works, maintenance , or service will be carried out by unqualified personnel. ( Other than Al Nisr technicians)
+b - Mechanical damage by accident
+c - Using parts from other sources.
+d-Breakdowns caused by force measure, weather, or geological phenomena.
+e - Faults caused by inadequate powder supply, voltage drops in the network overshoot or poor section cables or exposure to water sources (rain..)
+f- Any damage caused by inadequate environmental conditions for the type of door installed
+g-Damage caused by the use of inappropriate cleaning products or lubrication.
+h - All damages caused by lacking or inadequate maintenance of the door and/or not fulfilling the instructions received from the manufacturer
+and the regulations in force in each country.
+15- Any additional fees for the gate pass, badges, or any other security obligations should be paid by the client
+16- In order to keep the shutter in a good condition for a long period, you are requested to do proper maintenance and service following the instructions of
+the manufacturer. Otherwise, you can agree with Al-Nisr company to do the annual maintenance contract after the warranty period at an extra charge.
+17 The warranty will be applicable only if the client agreed on the annual maintenance contract with Al-Nisr company.
+18- Any changes in the size or in the quantity. Al-Nisr has the right to revise the unit rates of all the doors at any time during the project as per the market prices.
+19- Al-Nisr will not bear any responsibility for any delay caused by the COVID-19 pandemic including new restrictions and lockdown
+20. The warranty will be Null and Void if the shutter is operated without proper testing and commissioning by Al Nisr technical personnel.
+21- Any element or description not included in this offer will be subjected to a price variation.
+Important Note: 1- Appropriate periodical services should be carried out by the Al-Nisr Technical team to the rolling shutter in order to ensure functionality and durability.
+2- Never use abrasive or solvent-type cleaners like turpentine, petrol, kerosene, or paint thinners to clean door surfaces as they may ruin the finish.
+</textarea>
+                            </div>
+                        </div>
+                        <div id="cloudUpload" class="modal">
+                            <div style="width:400px;" class="modal-content">
+                                <button style="padding: 0;margin: 0;background: #ff1504;" onclick="$('#cloudUpload').css('display','none')">
+                                    <ion-icon name="close-outline"></ion-icon>
+                                </button>
+                                <br>
+                                <p style="font-weight: bold;font-variant: petite-caps;font-size: x-large;">Cloud Upload</p>
+                                <div>
+                                    <input type="text" placeholder="Name-Tag">
+                                    <input id="photoFile" type="file" accept=".png,.jpeg">
+                                    <button class="ripple" onclick="photoCloudUpload()">Begin Cloud Upload</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="DescriptionMainDiv" class="Description">
+                    <div id="description1">
+                        <div style="display: flex;align-items: center;">
+                            <button id="addButton1" class="ExpandButton" onclick="accordionNewAdd(1)">
+                                <ion-icon name="add-circle"></ion-icon>
+                            </button>
+                            <button class="accordion ripple" onclick="accordionListner(1)">Description</button>
+                        </div>
+                        <div id="panel10" class="panel0">
+                            <table class="descriptionNew MaterialDescription">
+                                <thead>
+                                    <tr>
+                                        <th colspan="5">Material Description</th>
+                                    </tr>
+                                    <tr>
+                                        <th contenteditable="true" id="optionItem10">OPTION</th>
+                                        <th contenteditable="true" id="optionItem11">1</th>
+                                        <th>
+                                            <select id="D1Select1" onchange="descriptionSwitch('1')">
+                                                <option selected="" dsiabled="">--please select--</option>
+                                                <option value="1">Aluminium Single Skin 80 x 1.2 mm</option>
+                                                <option value="2">Aluminium Double Skin Insulated 78 x 1.4 mm</option>
+                                                <option value="3">0.58 mm steel corrugated</option>
+                                                <option value="4">0.50 mm steel corrugated</option>
+                                                <option value="5">Heavy Duty Polycarbonate shutter</option>
+                                                <option value="6">Medium Duty Polycarbonate shutter</option>
+                                                <option value="7">Aluminium Grill Type</option>
+                                                <option value="8">GI 0.8 mm Micro Perforated</option>
+                                                <option value="9">GI 1.0 mm Micro Perforated</option>
+                                                <option value="10">GI 0.8 mm Non-Micro Perforated</option>
+                                                <option value="11">GI 1.0 mm Non-Micro Perforated</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select id="D1Select2" onchange="descriptionSwitch('1')">
+                                                <option selected="" dsiabled="">--please select--</option>
+                                                <option value="1">High Quality Side Mounted Motor</option>
+                                                <option value="2">European make Center Motor</option>
+                                                <option value="3">Manual Push-Up</option>
+                                                <option value="4">Manual Chain-Pully</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select id="D1photoSelect" onchange="photoChange('1')">
+                                            </select>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="DDTB" style="border-collapse: collapse;">
+                                    <tr>
+                                        <td id="D1Selected" colspan="3" style="background: #f1f1f1;padding: 0;border-bottom: 0.5px solid #f1f1f1;"><textarea style="width: -webkit-fill-available;padding: 5px;background: rgb(241, 241, 241);resize: vertical;border-bottom: 0.5px solid #f1f1f1;"></textarea></td>
+                                        <td id="D1Photo" colspan="2" style="text-align: center;background-color: #f1f1f1;color: #666666;border-bottom: 0.5px solid #f1f1f1;"><ion-icon name="image-outline" role="img" class="md hydrated" aria-label="image outline"></ion-icon></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="panel11" class="panel1">
+                            <table class="descriptionNew" style="padding: 0 0 20px 0;border-collapse: collapse;box-shadow: 1px 1px 9px 0px rgba(0, 0, 0, 0.25);">
+                                <thead>
+                                    <tr style="border-bottom-color: black;">
+                                        <th>S#</th>
+                                        <th>C</th>
+                                        <th>E</th>
+                                        <th colspan="2">Opening size/Scope of Work</th>
+                                        <th>
+                                            Price&nbsp;&nbsp; <input id="D1PCheck" type="checkbox" checked="">
+                                        </th>
+                                        <th>
+                                            Qty&nbsp;&nbsp; <input id="D1QCheck" type="checkbox" checked="">
+                                        </th>
+                                        <th>Total</th>
+                                        <th>+/-</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="D1TB">
+                                    <tr id="D1TR1">
+                                        <td>1</td>
+                                        <td id="D1TR1CB"><button class="customizeDescButton" onclick="customizeDescOn(11)"><ion-icon name="create-outline" role="img" class="md hydrated" aria-label="create outline"></ion-icon></button><input id="D1TR1CBH" class="hiddenCheckBox" type="checkbox"></td>
+                                        <td>
+                                            <input id="D1TR1ECheck" type="checkbox">
+                                        </td>
+                                        <td id="D1TR1W" contenteditable="true" colspan="1" style=""></td>
+                                        <td id="D1TR1H" contenteditable="true"></td>
+
+                                        <td id="D1TR1Q" contenteditable="true" oninput="dimensionCalc(11)" style="text-align: right;"></td>
+                                        <td id="D1TR1A" contenteditable="true" oninput="dimensionCalc(11)"></td>
+                                        <td id="D1TR1T" style="text-align: right;"></td>
+                                        <td id="D1TR1AR"><button class="rowAddButton" onclick="rowAddButtonClick(11)"><ion-icon name="add-circle-outline"></ion-icon></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="panel12" class="panel2">
+                            <table class="descriptionNew" style="border-collapse: collapse; box-shadow: 1px 1px 9px 0px rgba(0, 0, 0, 0.25);">
+                                <tbody id="D1TTB">
+                                    <tr id="D1TTR1">
+                                        <th colspan="3">Total</th>
+                                        <td>
+                                        </td>
+                                        <td style="text-align: right;"></td>
+                                    </tr>
+
+                                    <tr id="D1TTR2">
+                                        <th colspan="3">Vat @ 10%</th>
+                                        <td></td>
+                                        <td style="text-align: right;"></td>
+                                    </tr>
+                                    <tr id="D1TTR3">
+                                        <th colspan="3">
+                                            <button onclick="specialPriceOn(1)">
+                                                <ion-icon name="git-compare-outline" role="img" class="md hydrated" aria-label="git compare outline"></ion-icon>
+                                            </button>&nbsp;&nbsp;Grand Total
+                                        </th>
+                                        <td></td>
+                                        <td style="text-align:right;"></td>
+                                    </tr>
+                                    <tr id="D1TTR4">
+                                        <td colspan="5">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="panel13" class="panel2">
+                            <table class="descriptionNew" style="margin: 0 0 20px 0;border-collapse: collapse;box-shadow: 1px 1px 9px 0px rgba(0, 0, 0, 0.25);">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">Costing</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="costingBodyD1">
+                                    <tr id="D1CR1">
+                                        <th>Material, Manpower, and other Cost</th>
+                                        <td></td>
+                                        <td style="text-align: right;"></td>
+                                    </tr>
+                                    <tr id="D1CR2">
+                                        <th>Discount Margin</th>
+                                        <td contenteditable="true" oninput="marginCalC(1)">
+                                            10.00
+                                        </td>
+                                        <td style="text-align: right;"></td>
+                                    </tr>
+                                    <tr id="D1CR3">
+                                        <th>Discount Given</th>
+                                        <td>
+                                        </td>
+                                        <td style="text-align: right;"></td>
+                                    </tr>
+                                    <tr id="D1CR4">
+                                        <th>Profit Margin</th>
+                                        <td contenteditable="true" oninput="marginCalC(1)">
+                                            30.00
+                                        </td>
+                                        <td style="text-align: right;"></td>
+                                    </tr>
+                                    <tr id="D1CR5">
+                                        <th>Total</th>
+                                        <td></td>
+                                        <td style="text-align: right;"></td>
+                                    </tr>
+                                    <tr id="D1CR6">
+                                        <th>VAT</th>
+                                        <td>
+                                            10%
+                                        </td>
+                                        <td style="text-align: right;"></td>
+                                    </tr>
+                                    <tr id="D1CR7">
+                                        <th>Grand Total</th>
+                                        <td></td>
+                                        <td style="text-align: right;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+            <div id="Status" class="tabcontent">
+                <div class="qStatusFlex">
+                    <div id="cdnTableRefresh" class="qStatusTable">
+
+                    </div>
+                    <div class="qStatusDetails">
+                        <div id="statusPanelContent" class="statusPanel">
+                            <div style="display: flex;align-items: center;justify-content: center;flex-direction: column;">
+                                <h4 style="color: grey;font-variant: petite-caps;font-size: 20px;padding: 20px 0 5px 0;font-style: oblique;">
+                                    Quotation Number :
+                                    <span id="qstatusChosenQuote" style="color: red;font-size: 20px;">NaN</span>
+                                </h4>
+                                <table id="1" class="qStatusDetailsTable">
+                                    <tr>
+                                        <th>Quotation - pdf : </th>
+                                        <td id="quotationPDFlink"> NaN </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Quotation Time Stamp: </th>
+                                        <td id="quotationTimeStamp">NaN </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Quotation - word : </th>
+                                        <td id="quotationWordLink"> NaN </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Cost Split : </th>
+                                        <td id="quotationCostSplit"> NaN </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Quotation Status:</th>
+                                        <td id="quotationStatusStatement">
+                                            <select onchange="verStatusChangeSel()">
+                                                <option>Verification Pending</option>
+                                                <option>Verified</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Contact Person: </th>
+                                        <td id="quotationStatusContactPerson"><input onfocusout="verStatusChangeName()"> </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email ID: </th>
+                                        <td id="quotationStatusEmailID"><input onfocusout="verStatusChangeEmail()"> </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Subject Line: </th>
+                                        <td id="quotationStatusSubjectLine"><input onfocusout="verStatusChangeSubLine()"> </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email Type: </th>
+                                        <td id="quotationStatusEmailType">
+                                            <select onchange="verStatusChangeEmailType()">
+                                                <option>Reply</option>
+                                                <option>New</option>
+                                                <option>Revised</option>
+                                                <option>Best Price</option>
+                                                <option>Draft</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Q DeliveryStatus: </th>
+                                        <td id="quotationStatusEmailStatus">
+                                            <select onchange="verStatusChangeDelivery()">
+                                                <option>Not Sent</option>
+                                                <option>Sent</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Q DeliveryStamp: </th>
+                                        <td id="quotationStatusEmailTimeStamp">NaN </td>
+                                    </tr>
+                                </table>
+                                <button class="ripple">Mail Quote</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button class="complaint-open-button" onclick="openForm()">
+                    <ion-icon name="logo-reddit"></ion-icon>
+                </button>
+                <div class="complaint-chat-popup" id="complaint-myForm">
+                    <div class="cancel" style="float: right; padding: 5px;">
+                        <button class="complaint-closeButton" onclick="closeForm()">
+                            <ion-icon name="ellipse"></ion-icon>
+                        </button>
+                    </div>
+                    <div style="width:100%;text-align:left; ">
+                        <div id="complaint-formInput">
+                            <input placeholder="Villa/House/Building Number">
+                            <input placeholder="Road Number">
+                            <input placeholder="Block Number">
+                            <input placeholder="Customer Name">
+                            <input placeholder="Contact Number">
+                            <input placeholder="WhatsApp Number">
+                            <input placeholder="Email ID">
+                            <input placeholder="Additional information">
+                        </div>
+                    </div>
+                    <div>
+                        <button class="complaint-saveButton" onclick="saveChangesComplaintEntry()">Send Ticket</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+
+

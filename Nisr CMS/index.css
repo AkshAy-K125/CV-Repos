@@ -1,0 +1,349 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    vertical-align: middle;
+}
+
+body,
+html {
+    background: #eaf1fb;
+    height: 100%;
+    margin: 0;
+    font-size:12px;
+}
+
+    body::-webkit-scrollbar {
+        display: none;
+
+    }
+
+.startGif {
+    z-index: 9999;
+    position: absolute;
+    top: -10px;
+    width: -webkit-fill-available;
+    left: -10px;
+    background: black;
+    height: 110%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.container {
+    width: 100%;
+}
+.header {
+    width: 100%;
+    height: 9vh;
+    background: white;
+    border-radius: 7px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
+    position: sticky;
+    top: 0;
+    z-index: 500;
+}
+.headerContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.content {
+    width: 100%;
+    margin: 10px 0;
+    background: white;
+    height: 87vh;
+    border-radius: 7px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
+}
+
+.logo {
+    width: 50px;
+}
+
+.logoTitleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.headerFontStyle {
+    font-variant: petite-caps;
+    font-size: large;
+    color: grey;
+    padding: 10px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.headerFontStyle div {
+    color: grey;
+    padding: 10px;
+}
+    .headerFontStyle div:hover {
+        cursor: pointer;
+
+    }
+    .headerFontStyle a {
+        color: grey;
+        padding: 10px;
+        text-decoration: none;
+    }
+
+.headerFontStyle a:hover {
+    transition-duration: 0.5s;
+    border-radius: 10px;
+    background: #00000014;
+    cursor:pointer;
+   
+}
+.headerDropDown {
+    display: none;
+    flex-direction: column;
+    background: white;
+    border-radius: 7px;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.25);
+}
+
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.imagsize {
+    width: 50vw;
+    height: 50vh;
+}
+
+.loginModal {
+    position: fixed;
+    z-index: 999;
+    padding-top: 20px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #ffffff;
+}
+
+.loginModalContent {
+    height: 600px;
+    width: 25%;
+    background-color: #ffffff;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgb(0 0 0 / 25%) 0px 54px 55px, rgb(0 0 0 / 12%) 0px -12px 30px, rgb(0 0 0 / 12%) 0px 4px 6px, rgb(0 0 0 / 17%) 0px 12px 13px, rgb(0 0 0 / 9%) 0px -3px 5px;
+}
+
+    .loginModalContent input {
+        border: 0.1px solid rgb(0, 141, 233);
+        font-size: 14px;
+        outline: none;
+        padding: 10px;
+        border-radius: 7px;
+        width: 75%;
+        text-align: center;
+        font-variant: petite-caps;
+        margin: 20px;
+    }
+
+.loginButton1 {
+    width: 100px;
+    height: 40px;
+    background: #008DE9;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    font-weight: bold;
+}
+
+    .loginButton1:hover {
+        background: black;
+        color: white;
+        cursor: pointer;
+    }
+
+.passwordHide {
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+.sk-cube-grid {
+    width: 40px;
+    height: 40px;
+    margin: 10px auto;
+}
+
+    .sk-cube-grid .sk-cube {
+        width: 33%;
+        height: 33%;
+        background-color: black;
+        float: left;
+        -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+        animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+    }
+
+    .sk-cube-grid .sk-cube1 {
+        -webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s;
+    }
+
+    .sk-cube-grid .sk-cube2 {
+        -webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s;
+    }
+
+    .sk-cube-grid .sk-cube3 {
+        -webkit-animation-delay: 0.4s;
+        animation-delay: 0.4s;
+    }
+
+    .sk-cube-grid .sk-cube4 {
+        -webkit-animation-delay: 0.1s;
+        animation-delay: 0.1s;
+    }
+
+    .sk-cube-grid .sk-cube5 {
+        -webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s;
+    }
+
+    .sk-cube-grid .sk-cube6 {
+        -webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s;
+    }
+
+    .sk-cube-grid .sk-cube7 {
+        -webkit-animation-delay: 0s;
+        animation-delay: 0s;
+    }
+
+    .sk-cube-grid .sk-cube8 {
+        -webkit-animation-delay: 0.1s;
+        animation-delay: 0.1s;
+    }
+
+    .sk-cube-grid .sk-cube9 {
+        -webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s;
+    }
+
+@-webkit-keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    }
+}
+
+@keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    }
+}
+
+
+.checkmark__circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    stroke: #7ac142;
+    fill: none;
+    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: block;
+    stroke-width: 2;
+    stroke: #fff;
+    stroke-miterlimit: 10;
+    margin: 10% auto;
+    box-shadow: inset 0px 0px 0px #7ac142;
+    animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+}
+
+.checkmark__check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes scale {
+    0%, 100% {
+        transform: none;
+    }
+
+    50% {
+        transform: scale3d(1.1, 1.1, 1);
+    }
+}
+
+@keyframes fill {
+    100% {
+        box-shadow: inset 0px 0px 0px 30px #7ac142;
+    }
+}
+
+.homePageContainer {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.homepageWelcome {
+    position: fixed;
+    bottom: 25px;
+    color: grey;
+    font-variant: petite-caps;
+    font-size: -webkit-xxx-large;
+}
+
+.animateContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
